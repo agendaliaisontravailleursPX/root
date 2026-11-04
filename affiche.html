@@ -11,7 +11,72 @@
   var ADRESSE_PAGE = "https://votre-compte.github.io/agenda-commun/";
 </script>
 <style>
+  @page { size: A4 portrait; margin: 0; }<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Affiche agenda commun</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  /* RÉGLAGE : l'adresse de votre page vitrine (voir le guide, étape 4) */
+  var ADRESSE_PAGE = "https://agendaliaisontravailleurspx.github.io/root/";
+</script>
+<style>
   @page { size: A4 portrait; margin: 0; }
+  :root { --noir:#111; --rouge:#c8102e; --vert:#3d7a4a; --blanc:#fff; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #ddd; }
+  body { font-family: Inter, sans-serif; }
+  .page { width: 210mm; height: 297mm; margin: 0 auto; background: var(--noir); color: var(--blanc); padding: 16mm 14mm; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+  .surtitre { font-size: 11pt; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; opacity: .85; }
+  h1 { font-family: Anton, Impact, sans-serif; font-weight: 400; text-transform: uppercase; font-size: 88pt; line-height: .92; margin: 6mm 0 0; }
+  .bandeau { align-self: flex-start; background: var(--vert); font-weight: 800; text-transform: uppercase; font-size: 15pt; padding: 3mm 5mm; margin-top: 6mm; transform: rotate(-1.5deg); }
+  .rouge { background: var(--rouge); margin: 12mm -14mm 0; padding: 9mm 14mm; }
+  .rouge p { margin: 0; font-family: Anton, Impact, sans-serif; text-transform: uppercase; font-size: 30pt; line-height: 1.05; }
+  .bas { display: flex; gap: 10mm; align-items: center; margin-top: auto; }
+  .qr { background: var(--blanc); padding: 5mm; flex: 0 0 auto; }
+  .qr div { width: 62mm; height: 62mm; }
+  .liste { font-size: 15pt; line-height: 1.5; }
+  .liste strong { font-family: Anton, Impact, sans-serif; font-weight: 400; text-transform: uppercase; font-size: 24pt; display: block; margin-bottom: 2mm; }
+  .liste ul { margin: 0; padding-left: 6mm; }
+  .adresse { margin-top: 6mm; font-size: 11pt; opacity: .85; word-break: break-all; }
+  @media print { html, body { background: none; } .page { margin: 0; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="surtitre">AG de Nanterre // Mobilisation 2026</div>
+  <h1>Agenda<br>commun</h1>
+  <div class="bandeau">Toutes les actions en lien avec les travailleurs, au même endroit</div>
+  <div class="rouge"><p>Tractages, AG, rencontres et actions communes avec les travailleurs.<br>Ne ratez plus rien.</p></div>
+  <div class="bas">
+    <div class="qr"><div id="qr"></div></div>
+    <div class="liste">
+      <strong>Scannez pour</strong>
+      <ul>
+        <li>voir les prochaines actions</li>
+        <li>proposer une action</li>
+        <li>recevoir l'agenda sur votre téléphone</li>
+      </ul>
+    </div>
+  </div>
+  <div class="adresse" id="adresse"></div>
+</div>
+<script>
+  document.getElementById('adresse').textContent = ADRESSE_PAGE;
+  if (window.QRCode) {
+    new QRCode(document.getElementById('qr'), { text: ADRESSE_PAGE, width: 234, height: 234, correctLevel: QRCode.CorrectLevel.M });
+  } else {
+    var q = document.getElementById('qr');
+    q.style.cssText += 'display:flex;align-items:center;justify-content:center;text-align:center;color:#111;font-size:11pt;padding:4mm';
+    q.textContent = 'QR code indisponible : vérifiez la connexion internet puis rechargez la page.';
+  }
+</script>
+</body>
+</html>
+
   :root { --noir:#111; --rouge:#c8102e; --vert:#3d7a4a; --blanc:#fff; }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: #ddd; }
